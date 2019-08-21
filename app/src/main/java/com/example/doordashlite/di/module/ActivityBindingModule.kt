@@ -1,6 +1,6 @@
 package com.example.doordashlite.di.module
 
-import com.example.doordashlite.MainActivity
+import com.example.doordashlite.DiscoverActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -8,5 +8,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector
-    abstract fun mainActivity(): MainActivity
+    abstract fun discoverActivity(): DiscoverActivity
 }
