@@ -4,7 +4,4 @@ import androidx.lifecycle.ViewModel;
 import javax.inject.Inject
 
 class DiscoverViewModel @Inject constructor() : ViewModel() {
-    fun onInit() {
-        println("Hello!")
-    }
 }

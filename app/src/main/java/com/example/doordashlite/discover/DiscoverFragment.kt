@@ -33,9 +33,4 @@ class DiscoverFragment @Inject constructor(): Fragment() {
         return inflater.inflate(R.layout.discover_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.onInit()
-    }
-
 }
