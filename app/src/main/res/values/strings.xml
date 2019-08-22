@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DoorDash Lite</string>
+    <string name="all_restaurants">All Restaurants</string>
 </resources>
