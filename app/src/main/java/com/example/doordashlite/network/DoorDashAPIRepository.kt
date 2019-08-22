@@ -13,6 +13,6 @@ interface DoorDashAPIRepository {
     fun fetchRestaurants(
         @Query("lat") lat: String,
         @Query("lng") lng: String,
-        @Query("offset") offset: String,
-        @Query("limit") limit: String): Observable<List<Restaurant>>
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int): Observable<List<Restaurant>>
 }
