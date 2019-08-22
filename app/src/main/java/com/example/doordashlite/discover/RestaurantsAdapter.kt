@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.doordashlite.R
 import com.example.doordashlite.domain.entity.Restaurant
@@ -46,7 +45,7 @@ class RestaurantsAdapter(private var data: ArrayList<Restaurant>) : RecyclerView
                 this.visibility = View.VISIBLE
             }
 
-            adapter = PopularItemImagesAdapter(imageUrls)
+            adapter = PopularItemsImageAdapter(imageUrls)
         }
     }
 
@@ -56,28 +55,4 @@ class RestaurantsAdapter(private var data: ArrayList<Restaurant>) : RecyclerView
     }
 
     class RestaurantsViewHolder(val view: View) : RecyclerView.ViewHolder(view)
-
-    class PopularItemImagesAdapter(private val data: List<String>) : RecyclerView.Adapter<PopularItemImagesAdapter.PopularItemImagesViewHolder>() {
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
-        ): PopularItemImagesViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_popular_item_image, parent, false)
-            return PopularItemImagesViewHolder(view)
-        }
-
-        override fun getItemCount(): Int {
-            return if (data.size <= 5) data.size else 5
-        }
-
-        override fun onBindViewHolder(holder: PopularItemImagesViewHolder, position: Int) {
-            Glide.with(holder.view)
-                .load(data[position])
-                .transform(CenterCrop(), RoundedCorners(10))
-                .into(holder.view.imageView)
-        }
-
-        class PopularItemImagesViewHolder(val view: View) : RecyclerView.ViewHolder(view)
-    }
-
 }
