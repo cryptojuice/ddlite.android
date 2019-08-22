@@ -15,5 +15,7 @@ import javax.inject.Singleton
     ViewModuleBuilderModule::class,
     DiscoverModule::class,
     InteractorModule::class,
-    RepositoryModule::class])
+    RepositoryModule::class,
+    RxModule::class
+])
 internal interface ApplicationComponent : MembersInjector<DDLiteApplication>
