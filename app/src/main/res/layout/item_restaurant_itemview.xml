@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginBottom="10dp"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_menu_images"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="90dp"
         android:visibility="visible" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,39 +21,51 @@
 
         <TextView
             android:id="@+id/textView_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
             android:text="TextView"
             android:textColor="#000000"
             android:textSize="15sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView_description"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="TextView"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/barrier"
             app:layout_constraintStart_toStartOf="@id/textView_name"
             app:layout_constraintTop_toBottomOf="@+id/textView_name" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="start"
+            app:constraint_referenced_ids="textView_status"
+            tools:layout_editor_absoluteX="338dp" />
 
         <TextView
             android:id="@+id/textView_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:text="TextView"
             android:textSize="12sp"
             app:layout_constraintBaseline_toBaselineOf="@id/textView_description"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteY="50dp" />
+            app:layout_constraintStart_toEndOf="@+id/barrier" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

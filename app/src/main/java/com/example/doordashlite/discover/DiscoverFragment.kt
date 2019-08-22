@@ -14,9 +14,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.doordashlite.R
-import com.example.doordashlite.data.Menu
-import com.example.doordashlite.data.PopularItem
-import com.example.doordashlite.data.Restaurant
 import com.example.doordashlite.databinding.DiscoverFragmentBinding
 import com.example.doordashlite.di.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection

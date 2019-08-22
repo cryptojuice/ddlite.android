@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.FitCenter
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.doordashlite.R
-import com.example.doordashlite.data.Restaurant
+import com.example.doordashlite.domain.entity.Restaurant
 import kotlinx.android.synthetic.main.item_popular_item_image.view.*
 import kotlinx.android.synthetic.main.item_restaurant_itemview.view.*
 
@@ -28,19 +31,19 @@ class RestaurantsAdapter(private var data: ArrayList<Restaurant>) : RecyclerView
         holder.view.textView_status.text = data[position].status
 
         holder.view.recyclerView_menu_images.apply {
+            this.visibility = View.GONE
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-            val menus = data[position].menus
             val imageUrls = mutableListOf<String>()
 
-            menus?.flatMap {
+            data[position].menus?.flatMap {
                 it.popularItems.orEmpty()
             }?.forEach {
                 imageUrls.add(it.img_url)
             }
 
-            if (imageUrls.size == 0) {
-                this.visibility = View.GONE
+            if (imageUrls.size > 0) {
+                this.visibility = View.VISIBLE
             }
 
             adapter = PopularItemImagesAdapter(imageUrls)
@@ -54,7 +57,7 @@ class RestaurantsAdapter(private var data: ArrayList<Restaurant>) : RecyclerView
 
     class RestaurantsViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    class PopularItemImagesAdapter(val data: List<String>) : RecyclerView.Adapter<PopularItemImagesAdapter.PopularItemImagesViewHolder>() {
+    class PopularItemImagesAdapter(private val data: List<String>) : RecyclerView.Adapter<PopularItemImagesAdapter.PopularItemImagesViewHolder>() {
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
@@ -68,7 +71,10 @@ class RestaurantsAdapter(private var data: ArrayList<Restaurant>) : RecyclerView
         }
 
         override fun onBindViewHolder(holder: PopularItemImagesViewHolder, position: Int) {
-            Glide.with(holder.view).load(data[position]).centerCrop().into(holder.view.imageView)
+            Glide.with(holder.view)
+                .load(data[position])
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(holder.view.imageView)
         }
 
         class PopularItemImagesViewHolder(val view: View) : RecyclerView.ViewHolder(view)
