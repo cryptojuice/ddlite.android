@@ -27,6 +27,8 @@ class DiscoverFragment @Inject constructor(): Fragment() {
         ViewModelProviders.of(this, viewModelFactory)[DiscoverViewModel::class.java]
     }
 
+    private lateinit var binding: DiscoverFragmentBinding
+
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -36,7 +38,7 @@ class DiscoverFragment @Inject constructor(): Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: DiscoverFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.discover_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.discover_fragment, container, false)
 
         binding.restaurantsRecyclerView.also {
             it.layoutManager = LinearLayoutManager(this.context)
@@ -44,11 +46,14 @@ class DiscoverFragment @Inject constructor(): Fragment() {
             it.addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
         }
 
-        viewModel.restaurantMutableLiveData.observe(this, Observer {
-            (binding.restaurantsRecyclerView.adapter as RestaurantsAdapter).update(it)
-        })
-
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.restaurantMutableLiveData.observe(this, Observer {
+            (binding.restaurantsRecyclerView.adapter as RestaurantsAdapter).update(it)
+        })
+    }
 }
