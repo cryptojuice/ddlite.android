@@ -1,6 +1,7 @@
 package com.example.doordashlite.di.module
 
 import android.app.Application
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -12,5 +13,11 @@ class ApplicationModule(private val application: Application) {
     @Singleton
     fun providesApplication(): Application {
         return application
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(application: Application): SharedPreferences {
+        return application.getSharedPreferences("ddlite", 0)
     }
 }

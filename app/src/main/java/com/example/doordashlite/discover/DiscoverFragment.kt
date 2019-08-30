@@ -42,7 +42,7 @@ class DiscoverFragment @Inject constructor(): Fragment() {
 
         binding.restaurantsRecyclerView.also {
             it.layoutManager = LinearLayoutManager(this.context)
-            it.adapter = RestaurantsAdapter(arrayListOf())
+            it.adapter = RestaurantsAdapter(arrayListOf(), viewModel)
             it.addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
         }
 
