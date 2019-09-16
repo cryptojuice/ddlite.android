@@ -3,6 +3,7 @@ package com.example.doordashlite.domain.entity
 import com.google.gson.annotations.SerializedName
 
 data class Restaurant(
+    val id: String,
     val name: String,
     val description: String,
     val status: String,

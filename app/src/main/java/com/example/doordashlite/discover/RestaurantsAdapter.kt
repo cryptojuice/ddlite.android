@@ -13,7 +13,7 @@ import com.example.doordashlite.domain.entity.Restaurant
 import kotlinx.android.synthetic.main.item_popular_item_image.view.*
 import kotlinx.android.synthetic.main.item_restaurant_itemview.view.*
 
-class RestaurantsAdapter(private var data: ArrayList<Restaurant>) : RecyclerView.Adapter<RestaurantsAdapter.RestaurantsViewHolder>() {
+class RestaurantsAdapter(private var data: ArrayList<Restaurant>, private val vm: DiscoverViewModel) : RecyclerView.Adapter<RestaurantsAdapter.RestaurantsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_restaurant_itemview, parent, false)
@@ -28,6 +28,12 @@ class RestaurantsAdapter(private var data: ArrayList<Restaurant>) : RecyclerView
         holder.view.textView_name.text = data[position].name
         holder.view.textView_description.text = data[position].description
         holder.view.textView_status.text = data[position].status
+        holder.view.button_fav.text = if (vm.isFavorite(data[position].id)) "UNFAV" else "FAV"
+
+        holder.view.button_fav.setOnClickListener {
+            vm.onFavClicked(data[position].id)
+            notifyItemChanged(position)
+        }
 
         holder.view.recyclerView_menu_images.apply {
             this.visibility = View.GONE

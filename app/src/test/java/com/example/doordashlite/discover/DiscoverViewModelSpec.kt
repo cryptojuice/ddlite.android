@@ -1,5 +1,6 @@
 package com.example.doordashlite.discover
 
+import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.doordashlite.domain.RestaurantInteractor
 import com.example.doordashlite.domain.entity.Restaurant
@@ -11,6 +12,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
@@ -19,6 +21,12 @@ import org.mockito.MockitoAnnotations
 class DiscoverViewModelSpec {
     @Mock
     lateinit var mockRestaurantInteractor: RestaurantInteractor
+
+    @Mock
+    lateinit var mockSharedPreferences: SharedPreferences
+
+    @Mock
+    lateinit var mockSharedPreferencesEditor: SharedPreferences.Editor
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -44,7 +52,7 @@ class DiscoverViewModelSpec {
                         Observable.just(listOf())
                     )
 
-                    DiscoverViewModel(testScheduler, mockRestaurantInteractor)
+                    DiscoverViewModel(testScheduler, mockRestaurantInteractor, mockSharedPreferences)
                     testScheduler.triggerActions()
 
                     verify(mockRestaurantInteractor, times(1)).getRestaurants(
@@ -65,15 +73,43 @@ class DiscoverViewModelSpec {
                                 anyInt()
                             )
                         ).thenReturn(
-                            Observable.just(listOf(Restaurant("Something Fancy", "Thai", "open", 0.00)))
+                            Observable.just(listOf(Restaurant("0","Something Fancy", "Thai", "open", 0.00)))
                         )
-                        val viewModel = DiscoverViewModel(testScheduler, mockRestaurantInteractor)
+                        val viewModel = DiscoverViewModel(testScheduler, mockRestaurantInteractor, mockSharedPreferences)
 
                         testScheduler.triggerActions()
                         val actual = viewModel.restaurantMutableLiveData.value
 
                         assertEquals(1, actual?.size)
                         assertEquals("Something Fancy", actual?.get(0)?.name)
+                    }
+                }
+            }
+
+            describe("#onFavoriteClicked") {
+                beforeEach {
+                    `when`(
+                        mockRestaurantInteractor.getRestaurants(
+                            anyString(),
+                            anyString(),
+                            anyInt(),
+                            anyInt()
+                        )
+                    ).thenReturn(
+                        Observable.just(listOf(Restaurant("0","Something Fancy", "Thai", "open", 0.00)))
+                    )
+                }
+
+                describe("when restaurant does not exist in share preferences") {
+                    it("sets the restaurant as a favorite") {
+//                        `when`(mockSharedPreferences.getBoolean("fav-0", false)).thenReturn(false)
+//                        `when`(mockSharedPreferencesEditor.putBoolean("fav-0", true)).thenReturn(mockSharedPreferencesEditor)
+//                        val viewModel = DiscoverViewModel(testScheduler, mockRestaurantInteractor, mockSharedPreferences)
+//
+//                        viewModel.onFavClicked("0")
+//
+//                        verify(mockSharedPreferencesEditor).putBoolean("fav-0", true)
+//
                     }
                 }
             }
